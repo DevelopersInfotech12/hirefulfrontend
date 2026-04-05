@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Jost } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Script from "next/script";   // ✅ added
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +32,26 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${jost.variable} antialiased`}
       >
         <Navbar />
+
         {children}
-        <Footer/>
+
+        <Footer />
+
+        {/* ✅ Google Analytics Script */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-KL47MGYKZX"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KL47MGYKZX');
+          `}
+        </Script>
       </body>
     </html>
   );
 }
-              
